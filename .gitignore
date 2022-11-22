@@ -8,7 +8,7 @@
 !*/
 
 # Ignore git files
-.gitignore
+# .gitignore
 
 # Ignore system generated files
 .DS_Store
