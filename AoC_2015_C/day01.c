@@ -45,8 +45,6 @@ What is the position of the character that causes Santa to first enter the basem
 #include <stdio.h>
 
 #define DATAFILE "data_day01.txt"
-#define PART1 280
-#define PART2 1797
 
 int file_size(char *filename) {
     FILE *fh;
@@ -92,7 +90,7 @@ void part_1(char *data, int size) {
         //     level--;
         // }
     }
-    printf("Santa finished on level %i  [%s]\n", level, level == PART1 ? "true" : "false");
+    printf("Santa finished on level %i\n", level);
 }
 
 void part_2(char *data, int size) {
@@ -107,7 +105,7 @@ void part_2(char *data, int size) {
         }
     }
 
-    printf("Santa reached the basement on move %i  [%s]\n", count, count == PART2  ? "true" : "false");
+    printf("Santa reached the basement on move %i\n", count);
 }
 
 int main(void) {
