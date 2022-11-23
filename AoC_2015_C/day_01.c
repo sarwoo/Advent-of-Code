@@ -44,7 +44,7 @@ What is the position of the character that causes Santa to first enter the basem
 
 #include <stdio.h>
 
-#define DATAFILE "input_2015_day01.txt"
+#define DATAFILE "input_day_01.txt"
 
 int file_size(char *filename) {
     FILE *fh;
