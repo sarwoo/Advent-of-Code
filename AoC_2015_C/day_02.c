@@ -19,3 +19,94 @@
 * All numbers in the elves' list are in feet. How many total square feet of wrapping paper should they order?
 *
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define DATAFILE "input_day_02.txt"
+
+typedef struct Box
+{
+    int length;
+    int width;
+    int height;
+} Box;
+
+
+int file_size(char *filename) {
+    FILE *fh;
+    fh = fopen(filename, "r");
+
+    if (fh == NULL) {
+        printf("Error opening file");
+        return 0;
+    }
+
+    int pos = 0;
+    char c;
+    do {
+        c = fgetc(fh);
+        if (c == '\n') {
+            pos++;
+        }
+    } while (c != EOF); 
+
+    fclose(fh);
+    return pos;
+}
+
+
+int read_inputs(Box *data) {
+    FILE *file = fopen(DATAFILE, "r");
+    if (file == NULL) {
+        return -1;
+    }
+
+    char buffer[16];
+    fgets(buffer, 16, file);
+    int pos = 0;
+    while(!feof(file)){
+        Box *b = data + pos;
+        sscanf(buffer, "%dx%dx%d", &b->length, &b->width, &b->height);
+        pos++;
+        fgets(buffer, 16, file);
+    }
+    return pos;
+}
+
+
+void part_1(Box *box, int size) {
+    int i;
+    int total_area = 0;
+    for (i = 0; i < size; i++) {
+        int top = box[i].length*box[i].width;
+        int side = box[i].width*box[i].height;
+        int front = box[i].length*box[i].height;
+        int surface_area =  2*top + 2*side + 2*front;
+        int smallest_area = top;
+        if (side < smallest_area) {
+            smallest_area = side;
+        }
+        if (front < smallest_area) {
+            smallest_area = front;
+        }
+
+        total_area += surface_area + smallest_area;
+        
+    }
+    printf("Wrapping paper required is %d sq ft\n", total_area);
+}
+
+int main(void) {
+    printf("--- Day 2: I Was Told There Would Be No Math ---\n");
+
+    // Find size of datafile
+    int size = file_size(DATAFILE);
+    Box data[size];
+
+    if (read_inputs(data)) {
+        part_1(data, size);
+    }
+    return 0;
+}
