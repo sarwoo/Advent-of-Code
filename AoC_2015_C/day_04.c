@@ -26,22 +26,51 @@ Now find one that starts with six zeroes.
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include "libs/md5.h"
 
-void print_hash(uint8_t *p);
+void get_hash(char *secret, char *hash);
 
 int main(void)
 {
-    char *text = "The quick brown frox jumps over the lazy dog.";
-    uint8_t *result;
-    result = md5String(text);
-    print_hash(result);
+    bool no_match = true;
+    int suffix = 0;
+    char *secret = "yzbqklnj";
+
+
+    while (no_match)
+    {    
+        char test[50];
+        sprintf(test,"%s%d", secret, suffix); 
+        char hash[33] = "";
+        get_hash(test, hash);
+        if(hash[0] == '0' &&
+           hash[1] == '0' &&
+           hash[2] == '0' &&
+           hash[3] == '0' &&
+           hash[4] == '0' &&
+           hash[5] == '0' )
+        {
+            printf("Part 1 = %s : %d\n", hash, suffix);
+            no_match = false;
+        }
+        else
+        {
+        suffix++;
+
+        }
+    }
+
     return 0;
 }
 
-void print_hash(uint8_t *p){
-	for(unsigned int i = 0; i < 16; ++i){
-		printf("%02x", p[i]);
+void get_hash(char *secret, char *hash)
+{
+    uint8_t *result;
+    result = md5String(secret);
+    for(unsigned int i = 0; i < 16; ++i){
+        char bits[3];
+		sprintf(bits,"%02x", result[i]); 
+		strcat(hash, bits);
 	}
-	printf("\n");
 }
