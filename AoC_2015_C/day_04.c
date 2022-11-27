@@ -35,7 +35,7 @@ int main(void)
 {
     bool no_match = true;
     int suffix = 0;
-    char *secret = "yzbqklnj";
+    char *secret = "abcdef";
 
 
     while (no_match)
@@ -51,7 +51,7 @@ int main(void)
            hash[4] == '0' &&
            hash[5] == '0' )
         {
-            printf("Part 1 = %s : %d\n", hash, suffix);
+            printf("Part 2 = %s : %d\n", hash, suffix);
             no_match = false;
         }
         else
