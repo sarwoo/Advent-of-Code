@@ -35,9 +35,8 @@ void part_2(char *secret);
 
 int main(void)
 {
-
+    printf("--- Day 4: The Ideal Stocking Stuffer ---\n");
     char *secret = "abcdef";
-
     part_1(secret);
     part_2(secret);
 
@@ -70,7 +69,7 @@ void part_1(char *secret)
             hash[3] == '0' &&
             hash[4] == '0' )
         {
-            printf("Part 1 = %s : %d\n", hash, suffix);
+            printf("Part 1: %d\t(%s)\n", suffix, hash);
             no_match = false;
         }
         else
@@ -97,7 +96,7 @@ void part_2(char *secret)
             hash[4] == '0' &&
             hash[5] == '0' )
         {
-            printf("Part 2 = %s : %d\n", hash, suffix);
+            printf("Part 2: %d\t(%s)\n", suffix, hash);
             no_match = false;
         }
         else
