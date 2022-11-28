@@ -30,36 +30,16 @@ Now find one that starts with six zeroes.
 #include "libs/md5.h"
 
 void get_hash(char *secret, char *hash);
+void part_1(char *secret);
+void part_2(char *secret);
 
 int main(void)
 {
-    bool no_match = true;
-    int suffix = 0;
+
     char *secret = "abcdef";
 
-
-    while (no_match)
-    {    
-        char test[50];
-        sprintf(test,"%s%d", secret, suffix); 
-        char hash[33] = "";
-        get_hash(test, hash);
-        if(hash[0] == '0' &&
-           hash[1] == '0' &&
-           hash[2] == '0' &&
-           hash[3] == '0' &&
-           hash[4] == '0' &&
-           hash[5] == '0' )
-        {
-            printf("Part 2 = %s : %d\n", hash, suffix);
-            no_match = false;
-        }
-        else
-        {
-        suffix++;
-
-        }
-    }
+    part_1(secret);
+    part_2(secret);
 
     return 0;
 }
@@ -73,4 +53,57 @@ void get_hash(char *secret, char *hash)
 		sprintf(bits,"%02x", result[i]); 
 		strcat(hash, bits);
 	}
+}
+
+void part_1(char *secret)
+{
+    bool no_match = true;
+    int suffix = 0;
+    while (no_match) {
+        char test[50];
+        sprintf(test,"%s%d", secret, suffix); 
+        char hash[33] = "";
+        get_hash(test, hash);
+        if( hash[0] == '0' &&
+            hash[1] == '0' &&
+            hash[2] == '0' &&
+            hash[3] == '0' &&
+            hash[4] == '0' )
+        {
+            printf("Part 1 = %s : %d\n", hash, suffix);
+            no_match = false;
+        }
+        else
+        {
+        suffix++;
+
+        }
+    }
+}
+
+void part_2(char *secret)
+{
+    bool no_match = true;
+    int suffix = 0;
+    while (no_match) {
+        char test[50];
+        sprintf(test,"%s%d", secret, suffix); 
+        char hash[33] = "";
+        get_hash(test, hash);
+        if( hash[0] == '0' &&
+            hash[1] == '0' &&
+            hash[2] == '0' &&
+            hash[3] == '0' &&
+            hash[4] == '0' &&
+            hash[5] == '0' )
+        {
+            printf("Part 2 = %s : %d\n", hash, suffix);
+            no_match = false;
+        }
+        else
+        {
+        suffix++;
+
+        }
+    }
 }
