@@ -150,7 +150,7 @@ void part_2(char data[][MAX_LEN])
         if (has_repeat && has_pair)
             count_strings++;
     }
-    printf("Part 1: Number of nice strings: %d\n", count_strings);
+    printf("Part 2: Number of nice strings: %d\n", count_strings);
 }
 
 
