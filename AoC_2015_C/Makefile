@@ -1,6 +1,6 @@
 CC=gcc
 
-CFLAGS=-Wall -Werror
+CFLAGS=-Wall
 
 all:
 	@echo "Usage: make <filename without extension> "
