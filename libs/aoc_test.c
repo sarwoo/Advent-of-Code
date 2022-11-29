@@ -12,9 +12,9 @@ int main(int argc, char const *argv[])
         printf("%s [%d]\n", string, length);
     
     
-    printf("a:%p\n", string);
+    // printf("a:%p\n", string);
     // read_close(string);
     free(string);
-    printf("b:%p\n", string);
+    // printf("b:%p\n", string);
     return 0;
 }
