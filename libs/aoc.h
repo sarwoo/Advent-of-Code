@@ -1,6 +1,9 @@
 #ifndef __AOC__
 #define __AOC__
 
+char *read_init();
+
+void read_close(char *p);
 
 // Function to read a string from a file into dynamic memory
 // Returns the string length.
@@ -9,6 +12,7 @@
 // 
 // Suggested usage:
 // char *string = malloc(sizeof(char));
+// char *read_init()
 // read_file_string("filename.txt", string);
 // do something with the string...
 // free(string)

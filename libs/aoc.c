@@ -2,6 +2,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char *read_init()
+{
+    return malloc(sizeof(char));
+}
+
+void read_close(char *p)
+{
+    free(p);
+}
+
+int read_file_lines(char *filename, char* lines)
+{
+    // create a file pointer
+    FILE *file;
+
+    // open file and set to  pointer
+    file = fopen(filename, "r");
+
+    // if file open fails return null
+    if (file == NULL) return 0;
+
+    // close connection to the file
+    fclose(file);
+
+    return 0;
+}
+
 int read_file_string(char *filename, char* string)
 {
     // create a file pointer
