@@ -22,8 +22,10 @@ After following the instructions, how many lights are lit?
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define SIZE 1000
+#define INPUT_FILE "input_day_06.txt"
 
 // turn off 301,3 through 808,453
 // turn on 351,678 through 951,908
@@ -40,17 +42,14 @@ typedef struct
     int y2;
 } Instruction;
 
-
-// void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command);
 void process(bool matrix[SIZE][SIZE], Instruction led);
-void count_on(bool matrix[SIZE][SIZE]);
+int count_leds_on(bool matrix[SIZE][SIZE]);
 
 int main(void)
 {
     printf("--- Day 6: Probably a Fire Hazard ---\n");
     bool matrix[SIZE][SIZE] = {false};
     
-
     // process(matrix, 0, 0, 9, 9,  ON);
     // process(matrix, 0, 0, , 0,  TOGGLE);
     // process(matrix, 4, 4, 5, 5,  OFF);
@@ -58,11 +57,10 @@ int main(void)
     // process(matrix,0, 0, 0, 999,  ON);
     process(matrix, (Instruction) {ON, 0, 0, 0, 999});
 
-    count_on(matrix);
+    printf("Number of lights on: %d\n", count_leds_on(matrix));
     return 0;
 }
 
-// void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command)
 void process(bool matrix[SIZE][SIZE], Instruction led)
 {
     for (int x = led.x1; x <= led.x2; x++)
@@ -87,7 +85,7 @@ void process(bool matrix[SIZE][SIZE], Instruction led)
     }
 }
 
-void count_on(bool matrix[SIZE][SIZE])
+int count_leds_on(bool matrix[SIZE][SIZE])
 {
     int count = 0;
     for (int x = 0; x < SIZE; x++)
@@ -98,5 +96,6 @@ void count_on(bool matrix[SIZE][SIZE])
                 count++;
         }
     }
-    printf("Number of lights on: %d\n", count);
+    return count;
+    
 }
