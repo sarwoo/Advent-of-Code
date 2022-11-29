@@ -19,14 +19,30 @@ After following the instructions, how many lights are lit?
 
 */
 
+
 #include <stdio.h>
 #include <stdbool.h>
 
 #define SIZE 1000
 
+// turn off 301,3 through 808,453
+// turn on 351,678 through 951,908
+// toggle 720,196 through 897,994
+
 typedef enum command {ON, OFF, TOGGLE } Command;
 
-void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command);
+typedef struct 
+{
+    Command command;
+    int x1;
+    int y1;
+    int x2;   
+    int y2;
+} Instruction;
+
+
+// void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command);
+void process(bool matrix[SIZE][SIZE], Instruction led);
 void count_on(bool matrix[SIZE][SIZE]);
 
 int main(void)
@@ -39,19 +55,21 @@ int main(void)
     // process(matrix, 0, 0, , 0,  TOGGLE);
     // process(matrix, 4, 4, 5, 5,  OFF);
 
-    process(matrix,0, 0, 0, 999,  ON);
+    // process(matrix,0, 0, 0, 999,  ON);
+    process(matrix, (Instruction) {ON, 0, 0, 0, 999});
 
     count_on(matrix);
     return 0;
 }
 
-void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command)
+// void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command)
+void process(bool matrix[SIZE][SIZE], Instruction led)
 {
-    for (int x = x1; x <= x2; x++)
+    for (int x = led.x1; x <= led.x2; x++)
     {
-        for (int y = y1; y <= y2; y++)
+        for (int y = led.y1; y <= led.y2; y++)
         {
-            switch (command)
+            switch (led.command)
             {
             case ON:
                 matrix[x][y] = 1;
