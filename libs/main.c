@@ -6,14 +6,8 @@
 
 int main(int argc, const char * argv[])
 {
-
-    // char *string = read_init();
     char *data = read_file_string(DATAFILE);
-
     printf("data: %s\n", data);
-    
-    // read_close(string);
     free(data);
     return 0;
-
 }
