@@ -22,38 +22,34 @@ After following the instructions, how many lights are lit?
 #include <stdio.h>
 #include <stdbool.h>
 
-#define SIZE 10
+#define SIZE 1000
 
 typedef enum command {ON, OFF, TOGGLE } Command;
 
 void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command);
+void count_on(bool matrix[SIZE][SIZE]);
 
 int main(void)
 {
+    printf("--- Day 6: Probably a Fire Hazard ---\n");
     bool matrix[SIZE][SIZE] = {false};
+    
 
-    process(matrix, 0, 0, 9, 9,  ON);
-    process(matrix, 0, 0, 9, 0,  TOGGLE);
-    process(matrix, 4, 4, 5, 5,  OFF);
+    // process(matrix, 0, 0, 9, 9,  ON);
+    // process(matrix, 0, 0, , 0,  TOGGLE);
+    // process(matrix, 4, 4, 5, 5,  OFF);
 
-    for (int x = 0; x < SIZE; x++)
-    {
-        for (int y = 0; y < SIZE; y++)
-        {
-            printf("%i ", matrix[y][x]);
-        }
-        printf("\n");
-    }
+    process(matrix,0, 0, 0, 999,  ON);
 
+    count_on(matrix);
     return 0;
 }
 
-
 void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command command)
 {
-    for (int x = x1; x < x2+1; x++)
+    for (int x = x1; x <= x2; x++)
     {
-        for (int y = y1; y < y2+1; y++)
+        for (int y = y1; y <= y2; y++)
         {
             switch (command)
             {
@@ -70,6 +66,19 @@ void process(bool matrix[SIZE][SIZE], int x1, int y1, int x2, int y2, Command co
                 break;
             }
         }
-        printf("\n");
     }
+}
+
+void count_on(bool matrix[SIZE][SIZE])
+{
+    int count = 0;
+    for (int x = 0; x < SIZE; x++)
+    {
+        for (int y = 0; y < SIZE; y++)
+        {
+            if (matrix[y][x])
+                count++;
+        }
+    }
+    printf("Number of lights on: %d\n", count);
 }
