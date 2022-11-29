@@ -1,35 +1,13 @@
+//
+//  AoC.c
+//  AoC-Utils
+//
+//  Created by Sarah Wood on 29/11/2022.
+//
+
 #include "aoc.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-char *read_init()
-{
-    return malloc(sizeof(char));
-}
-
-void read_close(char *p)
-{
-    free(p);
-}
-
-int read_file_lines(char *filename, char* lines)
-{
-    // create a file pointer
-    FILE *file;
-
-    // open file and set to  pointer
-    file = fopen(filename, "r");
-
-    // if file open fails return null
-    if (file == NULL) return 0;
-
-    // close connection to the file
-    fclose(file);
-
-    return 0;
-}
-
-int read_file_string(char *filename, char* string)
+char *read_file_string(char *filename)
 {
     // create a file pointer
     FILE *file;
@@ -43,17 +21,17 @@ int read_file_string(char *filename, char* string)
     // Go to  end of the file
     fseek(file, 0, SEEK_END);
     // store number of chars in file
-    int length = ftell(file);
+    long length = ftell(file);
     // printf("length: %d\n", length);
     // Go  to  beginning of file
     fseek(file, 0, SEEK_SET);
 
-    // enlarge memoryto hold string data
-    string = realloc(string, sizeof(char) * length + 1);
+    // create  memory to hold string data
+    char *string = calloc(length + 1, sizeof(char) );
 
-    char c;     // buffer to hold char as we read
     int i = 0;  // counter to iterate through string
-    // Read each char from file until the end of file
+    
+    // Read each char from file un til the end of file
     // Store each char in string
     // increment counter i
     while ((string[i] = fgetc(file)) != EOF)
@@ -65,5 +43,5 @@ int read_file_string(char *filename, char* string)
     // Add null char at  end of string
     string[i] = '\0';
     
-    return length;
+    return string;
 }
