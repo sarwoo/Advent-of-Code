@@ -17,16 +17,23 @@ int file_count_lines(char *filename)
     do
     {
         c = fgetc(file);
-        if (c ==  '\n') current_line++;
+        if (c ==  '\n' ) current_line++;
     } while (c != EOF);
     fclose(file);
     return current_line;
 }
 
-char *read_file_lines(char *filename, int max_width)
+
+
+char **read_file_lines(char *filename, int max_width)
 {
     int max_lines = file_count_lines(filename);
-    char data[max_lines][max_width];
+
+    char **data;
+    data = malloc(sizeof(char *) * max_lines);
+
+    for (int i = 0; i < max_lines; i++)
+        data[i] = malloc(sizeof(char) * max_width);
 
     FILE *file;
     file = fopen(filename, "r");
@@ -35,17 +42,16 @@ char *read_file_lines(char *filename, int max_width)
         printf("Error opening file.");
         return NULL;
     }
-
+    
     int line = 0;
     while (!feof(file) && !ferror(file))
          if (fgets(data[line], max_width, file) != NULL)
             line++;
     fclose(file);
 
-    for (int i = 0; i < line;i++)
-        printf("%s", data[i]);
-    printf("\n");
-    return NULL;
+    printf("lines read: %d\n", line);
+
+    return data;
 }
 
 char *read_file_string(char *filename)

@@ -10,13 +10,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 // Counts how many lines are in a file and returns as int
 // Returns 1 is file empty
 // returns 0 if file error
 int file_count_lines(char *filename);
 
-char *read_file_lines(char *filename, int max_width);
+char **read_file_lines(char *filename, int max_width);
 
 // Function to read a string from a file into dynamic memory
 // Returns the string length.
