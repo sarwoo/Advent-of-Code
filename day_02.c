@@ -80,7 +80,7 @@ int file_size(char *filename) {
 // Read the input  file and store each input in the Box data array
 int read_inputs(Box *data) {
     // Exit if cant open the file
-    FILE *file = fopen(DATAFILE, "r");
+    FILE *file = fopen(STRINGDATA, "r");
     if (file == NULL) {
         return -1;
     }
@@ -152,7 +152,7 @@ int main(void) {
     printf("--- Day 2: I Was Told There Would Be No Math ---\n");
 
     // Find size of datafile
-    int size = file_size(DATAFILE);
+    int size = file_size(STRINGDATA);
     // Create an array of Box's with correct size
     Box data[size];
 

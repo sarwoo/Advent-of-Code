@@ -7,12 +7,28 @@
 
 #include "aoc.h"
 
+int file_count_lines(char *filename)
+{
+    FILE *file;
+    file = fopen(filename, "r");
+    if (file == NULL) return 0;
+    int current_line = 1;
+    char c;
+    do
+    {
+        c = fgetc(file);
+        if (c ==  '\n') current_line++;
+    } while (c != EOF);
+    fclose(file);
+    return current_line;
+}
+
 char *read_file_string(char *filename)
 {
     // create a file pointer
     FILE *file;
 
-    // open file and set to  pointer
+    // open file and set to pointer
     file = fopen(filename, "r");
 
     // if file open fails return null

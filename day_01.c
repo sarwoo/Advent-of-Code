@@ -112,7 +112,7 @@ int main(void) {
     printf("--- Day 1: Not Quite Lisp ---\n");
 
     // Find size of datafile
-    int size = file_size(DATAFILE);
+    int size = file_size(STRINGDATA);
     // printf("Size of data: %i\n", size);
 
     // initialise array to size of data
@@ -120,7 +120,7 @@ int main(void) {
 
     // read populate data array from data file
     // and run challanges using the data
-    if (read_input(DATAFILE, data)) {
+    if (read_input(STRINGDATA, data)) {
         part_1(data, size);
         part_2(data, size);
     }
