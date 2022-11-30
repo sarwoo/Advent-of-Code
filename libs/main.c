@@ -10,6 +10,9 @@ int main(int argc, const char * argv[])
     char *data = read_file_string(DATA_STRING);
     printf("string data: %s\n", data);
     printf("lines count: %d\n", file_count_lines(DATA_LINES));
+
+    read_file_lines(DATA_LINES, 100);
+
     free(data);
     return 0;
 
