@@ -16,6 +16,8 @@
 // returns 0 if file error
 int file_count_lines(char *filename);
 
+char *read_file_lines(char *filename, int max_width);
+
 // Function to read a string from a file into dynamic memory
 // Returns the string length.
 // It takes a char pointer with name of the file to be read
