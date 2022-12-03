@@ -27,8 +27,8 @@ After following the instructions, how many lights are lit?
 #include "aoc-util.h"
 
 #define SIZE 1000
-#define DATA_FILE "data.txt"
-// #define DATA_FILE "input_day_06.txt"
+// #define DATA_FILE "data.txt"
+#define DATA_FILE "input_day_06.txt"
 
 typedef enum command {ON, OFF, TOGGLE } Command;
 
@@ -154,7 +154,7 @@ void part_2(char **data, int count)
 
      int **leds = malloc(sizeof(int *) * SIZE);
      for (int i = 0; i < SIZE; i++)
-        leds[i] = malloc(sizeof(int) * SIZE);
+        leds[i] = calloc(SIZE, sizeof(int));
 
 	printf("Part 2... \n");
 
@@ -169,35 +169,36 @@ void part_2(char **data, int count)
 
         sscanf(data[i], "%s %i,%i through %i,%i", inst, &x1, &y1, &x2, &y2);
 
-        // for (int x = x1; x <= x2; x++)
-        // {
-        //     for (int y = y1; y <= y2; y++)
-        //     {
-        //     if (starts_with(inst, "turn-on"))
-        //         leds[x][y] += 1;
-        //     else if (starts_with(inst, "turn-off"))
-        //         {
-        //             leds[x][y] -= 1;
-        //             if (leds[x][y] < 0) leds[x][y] = 0;
-        //         }
-        //     else 
-        //         leds[x][y] *= 2;
-        //     }
-        // }
+        for (int x = x1; x <= x2; x++)
+        {
+            for (int y = y1; y <= y2; y++)
+            {
+            if (starts_with(inst, "turn-on"))
+                leds[x][y] += 1;
+            else if (starts_with(inst, "turn-off"))
+                {
+                    leds[x][y] -= 1;
+                    if (leds[x][y] < 0) leds[x][y] = 0;
+                }
+            else 
+                leds[x][y] += 2;
+            }
+        }
         
     }
 
     unsigned long total = 0;
-    // for (int x = 0; x < SIZE; x++)
-    // {
-    //     for (int y = 0; y < SIZE; y++)
-    //     {
-    //         total +=  leds[y][x];
-    //     }
-    // }
+    for (int x = 0; x < SIZE; x++)
+    {
+        for (int y = 0; y < SIZE; y++)
+        {
+            total +=  leds[y][x];
+        }
+    }
 
-    // printf("Number of lights on: %lu\n\n", total);
+    printf("Number of lights on: %lu\n\n", total);
 
+    for (int i = 0; i < SIZE; i++)
+        free(leds[i]);
     free(leds);
-
 }
