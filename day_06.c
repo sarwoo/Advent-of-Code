@@ -23,14 +23,12 @@ After following the instructions, how many lights are lit?
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
 #include "aoc-util.h"
 
 #define SIZE 1000
-#define DATA_FILE "input-day-06.txt"
-
-// turn off 301,3 through 808,453
-// turn on 351,678 through 951,908
-// toggle 720,196 through 897,994
+#define DATA_FILE "data.txt"
+// #define DATA_FILE "input_day_06.txt"
 
 typedef enum command {ON, OFF, TOGGLE } Command;
 
@@ -45,7 +43,7 @@ typedef struct
 
 void process(bool matrix[SIZE][SIZE], Instruction led);
 int count_leds_on(bool matrix[SIZE][SIZE]);
-void part_1(char **data, int count);
+void part_1(char **data, int count, bool matrix[SIZE][SIZE]);
 void part_2(char **data, int count);
 
 int main(void)
@@ -63,7 +61,9 @@ int main(void)
 		return 1;
 	}
 
-	part_1(data, count);
+    bool matrix[SIZE][SIZE] = {false};
+
+	part_1(data, count, matrix);
 	part_2(data, count);
 	
 	free_string_array(data, count);
@@ -107,27 +107,97 @@ int count_leds_on(bool matrix[SIZE][SIZE])
         }
     }
     return count;
-    
 }
 
-
-void part_1(char **data, int count)
+bool starts_with(char *start, char* string)
 {
-    bool matrix[SIZE][SIZE] = {false};
-    // process(matrix, 0, 0, 9, 9,  ON);
-    // process(matrix, 0, 0, , 0,  TOGGLE);
-    // process(matrix, 4, 4, 5, 5,  OFF);
-
-    // process(matrix,0, 0, 0, 999,  ON);
-    process(matrix, (Instruction) {ON, 0, 0, 0, 999});
-
-    printf("Number of lights on: %d\n", count_leds_on(matrix));
-    printf("Part 1... \n");	
+    int start_length = strlen(start);
+    int string_length = strlen(string);
+    if (strlen(start) > strlen(string)) return false;
+    for (int i = 0; i < start_length; i++)
+        if (string[i] != start[i]) return false;
+    return true;
 }
+
+void part_1(char **data, int count, bool matrix[SIZE][SIZE])
+{
+    printf("Part 1... \n");	
+
+    for (int i = 0; i < count; i++)
+    {
+        if (starts_with("turn", data[i]))
+            data[i][4] = '-';
+
+        char* inst;
+        int x1, y1, x2, y2;
+
+        sscanf(data[i], "%s %i,%i through %i,%i", inst, &x1, &y1, &x2, &y2);
+
+        Command cmd;
+        if (starts_with(inst, "turn-on"))
+            cmd = ON;
+        else if (starts_with(inst, "turn-off"))
+            cmd = OFF;
+        else 
+            cmd = TOGGLE;
+        Instruction instruction = {cmd, x1, y1, x2, y2};
+
+        process(matrix, instruction);
+    }
+
+    printf("Number of lights on: %d\n\n", count_leds_on(matrix));
+}
+
 
 void part_2(char **data, int count)
-{
+{       
+
+     int **leds = malloc(sizeof(int *) * SIZE);
+     for (int i = 0; i < SIZE; i++)
+        leds[i] = malloc(sizeof(int) * SIZE);
 
 	printf("Part 2... \n");
+
+    // process instructions
+    for (int i = 0; i < count; i++)
+    {
+        if (starts_with("turn", data[i]))
+            data[i][4] = '-';
+
+        char* inst;
+        int x1, y1, x2, y2;
+
+        sscanf(data[i], "%s %i,%i through %i,%i", inst, &x1, &y1, &x2, &y2);
+
+        // for (int x = x1; x <= x2; x++)
+        // {
+        //     for (int y = y1; y <= y2; y++)
+        //     {
+        //     if (starts_with(inst, "turn-on"))
+        //         leds[x][y] += 1;
+        //     else if (starts_with(inst, "turn-off"))
+        //         {
+        //             leds[x][y] -= 1;
+        //             if (leds[x][y] < 0) leds[x][y] = 0;
+        //         }
+        //     else 
+        //         leds[x][y] *= 2;
+        //     }
+        // }
+        
+    }
+
+    unsigned long total = 0;
+    // for (int x = 0; x < SIZE; x++)
+    // {
+    //     for (int y = 0; y < SIZE; y++)
+    //     {
+    //         total +=  leds[y][x];
+    //     }
+    // }
+
+    // printf("Number of lights on: %lu\n\n", total);
+
+    free(leds);
 
 }
