@@ -34,7 +34,7 @@ For example:
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define INPUTFILE "input_day_03.txt"
+#define INPUTFILE "input-day-03.txt"
 
 typedef struct 
 {

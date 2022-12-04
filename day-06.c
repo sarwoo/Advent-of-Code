@@ -28,7 +28,7 @@ After following the instructions, how many lights are lit?
 
 #define SIZE 1000
 // #define DATA_FILE "data.txt"
-#define DATA_FILE "input_day_06.txt"
+#define DATA_FILE "input-day-06.txt"
 
 typedef enum command {ON, OFF, TOGGLE } Command;
 

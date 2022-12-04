@@ -44,7 +44,7 @@ How many strings are nice under these new rules?
 #include <string.h>
 #include <stdbool.h>
 
-#define INPUT_FILE "input_day_05.txt"
+#define INPUT_FILE "input-day-05.txt"
 
 #define MAX_LINES 1000
 #define MAX_LEN   18 // 16 alph chars + \n + \0
